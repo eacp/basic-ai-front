@@ -2,8 +2,16 @@
 
 	// Bad hardcoded, but good enough for the demo.
 	const apiRoot = "https://a01702948-basic-ai.azurewebsites.net/api/kmeans";
+
+	// Load example csvs
+	let iris = "";
+	let xy = "";
+
+	// Load samples
+	fetch("iris.csv").then( res => res.text()).then( text => iris = text);
+	fetch("quizExample.csv").then( res => res.text()).then( text => xy = text);
 	
-	let csvText = "Paste your CSV here...";
+	let csvText = "Paste your CSV here...\n\nOr load an sample dataset";
 
 	let k = 3;
 
@@ -66,6 +74,18 @@
 
 	}
 
+	function loadIris() {
+		csvText = iris;
+		csvHasHeaders = true;
+		k = 3;
+	}
+
+	function loadXY(){
+		csvText = xy;
+		csvHasHeaders = true;
+		k = 2;
+	}
+
 </script>
 
 <main>
@@ -78,6 +98,10 @@
 		opposed to <i>kmeans++</i>, which is better because it offers a
 		better inirialization
 	</p>
+
+	<br>
+	<button on:click={loadIris}>Load Iris sample</button>
+	<button on:click={loadXY}>Load XY 2d sample</button>
 
 	<br>
 	<textarea cols="50" rows="10" bind:value={csvText}></textarea>
